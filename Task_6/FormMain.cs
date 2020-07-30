@@ -23,7 +23,7 @@ namespace Task_6
 
         private void btnAddPower_Click(object sender, EventArgs ea)
         {
-            tower.Add((int)numPower.Value);
+            tower.AddPower((int)numPower.Value);
             lblTower.Text = tower.ToStringPowers();
         }
 
@@ -48,7 +48,9 @@ namespace Task_6
                 lbTowers.Items.Add(t.ToStringPowers());
 
             foreach (var t in Helper.SortTowers(towers))
-                lbTowersSort.Items.Add(t.ToStringPowers());// + "=" + t.ValuePower());
+                lbTowersSort.Items.Add(t.ToStringPowers());
+
+            lblTower.Text = tower.ToStringPowers();
         }
 
         private void btnAddTower_Click(object sender, EventArgs e)
@@ -67,16 +69,20 @@ namespace Task_6
 
         private void btnLoad_Click(object sender, EventArgs ea)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
+                ofd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                ofd.FilterIndex = 1;
+                ofd.InitialDirectory = Application.StartupPath;
+                ofd.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        var lines = File.ReadAllLines(openFileDialog.FileName);
+                        towers.Clear();
+
+                        var lines = File.ReadAllLines(ofd.FileName);
                         foreach (var line in lines)
                         {
                             string[] numbers = line.Split(' ');
@@ -95,7 +101,38 @@ namespace Task_6
                     }
                 }
             }
-            printTowers(towers);
+            tower.Clear();
+            printTowers(towers);            
+        }
+
+        private void btnSave_Click(object sender, EventArgs ea)
+        {
+            try
+            {
+                using (var sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                    sfd.FileName = "output.txt";
+                    sfd.FilterIndex = 1;
+                    sfd.InitialDirectory = Application.StartupPath;
+                    sfd.RestoreDirectory = true;
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        
+                        foreach (var t in towers)
+                            sb.AppendLine(t.ToStringPowers(" "));
+
+                        File.WriteAllText(sfd.FileName, sb.ToString());
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Ошибка сохранения в файл. " + e.Message);
+            }
+
         }
     }
 

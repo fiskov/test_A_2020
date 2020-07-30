@@ -1,31 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Task_6
 {
     static class Helper
     {
-        const string prefix = "** ";
-
         internal static IEnumerable<List<int>> SortTowers(List<List<int>> towers)
         {
             var towersSort = new List<List<int>>();
             foreach (var t in towers)
                 towersSort.Add(new List<int>(t));
 
-            towersSort.Sort(
-                delegate (List<int> p1, List<int> p2) 
-                {
-                    return p1.ValuePower().CompareTo(p2.ValuePower());
-                }
-            );
+            IComparer<List<int>> comparer = new CompareClass();
+            towersSort.Sort(comparer);
 
             foreach (var t in towersSort)
                 yield return t;
@@ -50,9 +38,7 @@ namespace Task_6
                     for (int i = 0; i < t.Count; i++)
                         if (Tower[i] != t[i]) b = false;
 
-                    if (b) throw new Exception("В списке уже есть такая башня"+Environment.NewLine+
-                                Tower.ToStringPowers()+ Environment.NewLine +
-                                t.ToStringPowers());
+                    if (b) throw new Exception("В списке уже есть такая башня");
                 }                                      
 
             lst.Add(Tower);
@@ -66,7 +52,7 @@ namespace Task_6
             for (int i = 0; i < cnt; i++) lst.Add(r.Next(1, 99));
         }
 
-        public static string ToStringPowers(this List<int> lst)
+        public static string ToStringPowers(this List<int> lst, string prefix = "**")
         {
             StringBuilder s = new StringBuilder();
 
@@ -76,13 +62,22 @@ namespace Task_6
             return s.ToString();
         }
 
-        public static double ValuePower(this List<int> lst)
-        {
-            double res = 1;
-            foreach (var t in lst)
-                if (t>1) res *= Math.Log10(t);
 
-            return 1/res;
+
+
+
+
+        
+    }
+
+    public class CompareClass : IComparer<List<int>>
+    {
+        const double EPS = 0.0000000001;
+
+        // Call CaseInsensitiveComparer.Compare with the parameters reversed.
+        public int Compare(List<int> x, List<int> y)
+        {
+            return x.Count.CompareTo(y.Count);
         }
     }
 }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.btnLoad = new System.Windows.Forms.Button();
             this.lblTower = new System.Windows.Forms.Label();
             this.btnCreateTower = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -44,8 +45,8 @@
             this.lbTowers = new System.Windows.Forms.ListBox();
             this.lbTowersSort = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnLoad = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnSave = new System.Windows.Forms.Button();
             this.panelTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPower)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -56,12 +57,13 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Location = new System.Drawing.Point(3, 3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(794, 17);
+            this.label1.Size = new System.Drawing.Size(841, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Приложение сортировки массива башен степеней по возрастанию";
             // 
             // panelTop
             // 
+            this.panelTop.Controls.Add(this.btnSave);
             this.panelTop.Controls.Add(this.btnLoad);
             this.panelTop.Controls.Add(this.lblTower);
             this.panelTop.Controls.Add(this.btnCreateTower);
@@ -74,8 +76,19 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(3, 20);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(794, 146);
+            this.panelTop.Size = new System.Drawing.Size(841, 146);
             this.panelTop.TabIndex = 1;
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(451, 99);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(183, 37);
+            this.btnLoad.TabIndex = 10;
+            this.btnLoad.Text = "Загрузить из файла...";
+            this.toolTip1.SetToolTip(this.btnLoad, "В каждой строке идут числа разделенные пробелом");
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // lblTower
             // 
@@ -85,7 +98,7 @@
             this.lblTower.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblTower.Location = new System.Drawing.Point(9, 49);
             this.lblTower.Name = "lblTower";
-            this.lblTower.Size = new System.Drawing.Size(778, 44);
+            this.lblTower.Size = new System.Drawing.Size(825, 44);
             this.lblTower.TabIndex = 9;
             // 
             // btnCreateTower
@@ -133,9 +146,9 @@
             // 
             // btnClearTowerList
             // 
-            this.btnClearTowerList.Location = new System.Drawing.Point(233, 99);
+            this.btnClearTowerList.Location = new System.Drawing.Point(236, 99);
             this.btnClearTowerList.Name = "btnClearTowerList";
-            this.btnClearTowerList.Size = new System.Drawing.Size(210, 37);
+            this.btnClearTowerList.Size = new System.Drawing.Size(209, 37);
             this.btnClearTowerList.TabIndex = 3;
             this.btnClearTowerList.Text = "Очистить массив башен";
             this.btnClearTowerList.UseVisualStyleBackColor = true;
@@ -145,7 +158,7 @@
             // 
             this.btnAddTower.Location = new System.Drawing.Point(12, 99);
             this.btnAddTower.Name = "btnAddTower";
-            this.btnAddTower.Size = new System.Drawing.Size(215, 37);
+            this.btnAddTower.Size = new System.Drawing.Size(218, 37);
             this.btnAddTower.TabIndex = 2;
             this.btnAddTower.Text = "Добавить башню в массив";
             this.btnAddTower.UseVisualStyleBackColor = true;
@@ -187,7 +200,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(794, 281);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(841, 281);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // label2
@@ -195,7 +208,7 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Location = new System.Drawing.Point(6, 3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(388, 20);
+            this.label2.Size = new System.Drawing.Size(411, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Не сортированный массив башен степеней";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -207,7 +220,7 @@
             this.lbTowers.ItemHeight = 16;
             this.lbTowers.Location = new System.Drawing.Point(6, 26);
             this.lbTowers.Name = "lbTowers";
-            this.lbTowers.Size = new System.Drawing.Size(388, 249);
+            this.lbTowers.Size = new System.Drawing.Size(411, 249);
             this.lbTowers.TabIndex = 1;
             // 
             // lbTowersSort
@@ -215,41 +228,39 @@
             this.lbTowersSort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbTowersSort.FormattingEnabled = true;
             this.lbTowersSort.ItemHeight = 16;
-            this.lbTowersSort.Location = new System.Drawing.Point(400, 26);
+            this.lbTowersSort.Location = new System.Drawing.Point(423, 26);
             this.lbTowersSort.Name = "lbTowersSort";
-            this.lbTowersSort.Size = new System.Drawing.Size(388, 249);
+            this.lbTowersSort.Size = new System.Drawing.Size(412, 249);
             this.lbTowersSort.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(400, 3);
+            this.label3.Location = new System.Drawing.Point(423, 3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(276, 17);
             this.label3.TabIndex = 3;
             this.label3.Text = "Сортированный массив башен степеней";
             // 
-            // btnLoad
-            // 
-            this.btnLoad.Location = new System.Drawing.Point(450, 99);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(183, 37);
-            this.btnLoad.TabIndex = 10;
-            this.btnLoad.Text = "Загрузить из файла...";
-            this.toolTip1.SetToolTip(this.btnLoad, "В первой строке файла должен содержать кол-во строк\r\nВ каждой последующей строке " +
-        "идут числа разделенные пробелом");
-            this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
-            // 
             // toolTip1
             // 
             this.toolTip1.ToolTipTitle = "Формат файла";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(640, 99);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(176, 37);
+            this.btnSave.TabIndex = 11;
+            this.btnSave.Text = "Сохранить в файл...";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(847, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panelTop);
             this.Controls.Add(this.label1);
@@ -287,6 +298,7 @@
         private System.Windows.Forms.Label lblTower;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnSave;
     }
 }
 
