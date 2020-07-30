@@ -1,0 +1,29 @@
+﻿<Window x:Name="MainForm" x:Class="Task_1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d"
+        Title="Задача 1" Height="283.6" Width="625.6" MinWidth="430" MinHeight="200">
+    <Grid Background="#FFE5E5E5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0">
+            <Label Margin="3">Приложение вычисляет результат возведения в степень 2ⁿ</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label Margin="3" Content="Введите степень [0 &lt; n &lt; 1000]"/>
+                <TextBox x:Name="TextInput" Text="3" Width="117" HorizontalAlignment="Center" Margin="3" TextAlignment="Center" FontSize="14"
+                         PreviewTextInput="TextBox_NumberValidation" KeyDown="OnKeyDownHandler" MaxLength="3" ContextMenu="{x:Null}" CommandManager.PreviewExecuted="TextBox_PreviewExecuted"/>
+                <Button x:Name="BtnCalc" Content="Вычислить" Margin="3" Width="98" Click="BtnCalc_Click"/>
+            </StackPanel>
+            <DockPanel>
+                <Label Margin="3" Content="Результат вычислений:" HorizontalAlignment="Right"/>
+                <CheckBox x:Name="CheckGroup" Margin="3" Content="Разделители групп разрядов" VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="True" Width="182"/>
+            </DockPanel>
+
+        </StackPanel>
+        <TextBox x:Name="TextResult" TextWrapping="Wrap" Margin="3" Grid.Row="1" VerticalScrollBarVisibility="Auto"/>
+    </Grid>
+</Window>
