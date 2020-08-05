@@ -3,7 +3,7 @@
 С наскока не разобрался с логарифмами
 
 
-Правильное условие задачи (мне дали несколько не верное)  https://acmp.ru/index.asp?main=task&id_task=561
+Правильное условие задачи (мне дали неверное)  https://acmp.ru/index.asp?main=task&id_task=561
 
 Описание решения https://petr-mitrichev.blogspot.com/2019/06/power-towers-solution.html
 
